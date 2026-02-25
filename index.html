@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>منهجية الوحدة الرابعة: الأحماض والأسس</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;800&display=swap" rel="stylesheet">
+    
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+
+    <style>
+        :root {
+            --primary: #1e3a8a;
+            --secondary: #0f172a;
+            --gold: #d4af37;
+            --bg: #fdfaf6;
+            --text: #1e293b;
+            --light-blue: #eff6ff;
+            --danger: #fee2e2;
+            --danger-text: #dc2626;
+            --success: #dcfce7;
+            --success-text: #16a34a;
+        }
+
+        body {
+            font-family: 'Cairo', sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            margin: 0;
+            padding: 20px;
+            line-height: 1.8;
+        }
+
+        .header {
+            text-align: center;
+            background: linear-gradient(135deg, var(--secondary), var(--primary));
+            color: white;
+            padding: 30px;
+            border-radius: 20px;
+            margin-bottom: 30px;
+            border-bottom: 4px solid var(--gold);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+
+        .header h1 { margin: 0; font-weight: 800; font-size: 2.2rem;}
+        .header p { color: var(--gold); font-size: 1.2rem; margin-top: 10px; }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            max-width: 1200px;
+            margin: 0 auto;
+            gap: 25px;
+        }
+
+        @media(min-width: 900px) {
+            .container { flex-direction: row; }
+        }
+
+        /* شريط التنقل الجانبي */
+        .sidebar {
+            flex: 1;
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            border: 1px solid #e2e8f0;
+            height: fit-content;
+            position: sticky;
+            top: 20px;
+        }
+
+        .tab-btn {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            margin-bottom: 12px;
+            background: var(--light-blue);
+            border: 1px solid #bfdbfe;
+            border-radius: 10px;
+            text-align: right;
+            font-family: inherit;
+            font-size: 1.1rem;
+            font-weight: 800;
+            cursor: pointer;
+            transition: 0.3s;
+            color: var(--primary);
+        }
+
+        .tab-btn:hover { background: #dbeafe; transform: translateX(-5px); }
+        .tab-btn.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+            border-right: 6px solid var(--gold);
+            transform: translateX(-5px);
+        }
+
+        /* محتوى الدرس */
+        .content-area {
+            flex: 3;
+            background: white;
+            border-radius: 15px;
+            padding: 40px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            border: 1px solid #e2e8f0;
+        }
+
+        .lesson { display: none; animation: fadeIn 0.4s ease; }
+        .lesson.active { display: block; }
+        
+        @keyframes fadeIn { from {opacity: 0; transform: translateY(15px);} to {opacity: 1; transform: translateY(0);} }
+
+        .lesson-title {
+            color: var(--primary);
+            border-bottom: 3px dashed var(--gold);
+            padding-bottom: 15px;
+            margin-top: 0;
+            font-size: 1.8rem;
+        }
+
+        .concept-card {
+            background: #f8fafc;
+            border-right: 4px solid var(--primary);
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+        }
+        .concept-card h3 { margin-top: 0; color: var(--primary); }
+
+        .formula-box {
+            background: var(--light-blue);
+            border: 1px solid #bfdbfe;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 15px 0;
+            font-size: 1.3rem;
+            overflow-x: auto;
+            text-align: center;
+        }
+
+        /* تنسيق أسئلة البكالوريا */
+        .qa-box {
+            margin-bottom: 20px;
+            border: 1px solid #e2e8f0;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        .qa-question {
+            background: var(--primary);
+            color: white;
+            padding: 15px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            margin: 0;
+        }
+        .qa-answer {
+            background: #f8fafc;
+            padding: 15px;
+            margin: 0;
+        }
+
+        /* تنسيق الفجوات والأخطاء القاتلة */
+        .pitfall-container {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-bottom: 30px;
+            border: 2px solid #e2e8f0;
+            border-radius: 15px;
+            padding: 20px;
+        }
+        .pitfall-title { font-size: 1.2rem; font-weight: bold; color: var(--secondary); margin: 0 0 10px 0; border-bottom: 1px solid #ccc; padding-bottom: 10px;}
+        .mistake { background: var(--danger); color: var(--danger-text); padding: 15px; border-radius: 8px; border-right: 5px solid #ef4444; }
+        .correction { background: var(--success); color: var(--success-text); padding: 15px; border-radius: 8px; border-right: 5px solid #22c55e; }
+
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h1>🧪 أكاديمية التميز - دليل الأستاذ والطالب</h1>
+        <p>المنهجية الشاملة للوحدة الرابعة: تطور حالة جملة كيميائية نحو حالة التوازن</p>
+    </div>
+
+    <div class="container">
+        <div class="sidebar">
+            <button class="tab-btn active" onclick="openLesson(event, 'station1')">المحطة 1: المفاهيم والتعاريف</button>
+            <button class="tab-btn" onclick="openLesson(event, 'station2')">المحطة 2: الخواص والعلاقات</button>
+            <button class="tab-btn" onclick="openLesson(event, 'station3')">المحطة 3: أسئلة البكالوريا الكلاسيكية</button>
+            <button class="tab-btn" onclick="openLesson(event, 'station4')" style="color: #dc2626; border-color: #fca5a5;">المحطة 4: الفجوات والأخطاء القاتلة ⚠️</button>
+        </div>
+
+        <div class="content-area">
+            
+            <div id="station1" class="lesson active">
+                <h2 class="lesson-title">المحطة الأولى: المفاهيم والتعاريف الأساسية (الأساس النظري)</h2>
+                
+                <div class="concept-card">
+                    <h3>1. الحمض والأساس (حسب برونشتد - لوري)</h3>
+                    <ul>
+                        <li><b>الحمض ($HA$):</b> كل فرد كيميائي (جزيء أو شاردة) قادر على <b>فقدان</b> بروتون $H^+$ أو أكثر خلال تفاعل كيميائي.</li>
+                        <li><b>الأساس ($B$):</b> كل فرد كيميائي (جزيء أو شاردة) قادر على <b>اكتساب</b> بروتون $H^+$ أو أكثر خلال تفاعل كيميائي.</li>
+                    </ul>
+                </div>
+
+                <div class="concept-card">
+                    <h3>2. النوع المذبذب (الأمفوتيري)</h3>
+                    <p>فرد كيميائي يسلك سلوك الحمض تارة وسلوك الأساس تارة أخرى حسب الوسط المتواجد فيه (أشهر مثال: الماء $H_2O$).</p>
+                </div>
+
+                <div class="concept-card">
+                    <h3>3. الكمون الهيدروجيني (pH)</h3>
+                    <p>مقدار بدون وحدة يعبر عن درجة حموضة محلول مائي ممدد (حيث تركيز شوارد الهيدرونيوم أقل من $0.05 \text{ mol/L}$).</p>
+                </div>
+
+                <div class="concept-card">
+                    <h3>4. المعايرة ونقطة التكافؤ</h3>
+                    <ul>
+                        <li><b>المعايرة:</b> عملية كيميائية تهدف إلى إيجاد تركيز مجهول لمحلول بواسطة محلول آخر معلوم التركيز.</li>
+                        <li><b>نقطة التكافؤ ($E$):</b> النقطة التي يكون فيها المزيج ستوكيومترياً (كمية مادة المتفاعلات تنتهي في نفس الوقت ويحدث تغير في الصفة الغالبة).</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div id="station2" class="lesson">
+                <h2 class="lesson-title">المحطة الثانية: الخواص والعلاقات الرياضية (صندوق أدوات التلميذ)</h2>
+                <p>هذه هي القوانين الأساسية التي يجب على التلميذ التحكم فيها لحل أي تمرين:</p>
+
+                <h3>1. علاقة الـ pH بالتركيز</h3>
+                <div class="formula-box">
+                    $$pH = -\log[H_3O^+]$$
+                    $$[H_3O^+] = 10^{-pH}$$
+                </div>
+
+                <h3>2. الجداء الشاردي للماء ($K_e$)</h3>
+                <p>قيمة ثابتة عند درجة حرارة $25^\circ C$:</p>
+                <div class="formula-box">
+                    $$K_e = [H_3O^+]_{eq} \times [OH^-]_{eq} = 10^{-14}$$
+                    $$pK_e = -\log(K_e) = 14$$
+                </div>
+
+                <h3>3. نسبة التقدم النهائي ($\tau_f$)</h3>
+                <div class="formula-box">
+                    $$\tau_f = \frac{x_f}{x_{max}}$$
+                </div>
+                <p><b>ملاحظة:</b> إذا كان $\tau_f = 1$ (التفاعل تام والحمض/الأساس قوي). وإذا كان $\tau_f < 1$ (التفاعل غير تام ومحدود، والحمض/الأساس ضعيف).</p>
+
+                <h3>4. ثابت الحموضة ($K_a$) وثابت التوازن ($K$)</h3>
+                <p>لثنائية أساس/حمض ($HA/A^-$):</p>
+                <div class="formula-box">
+                    $$K_a = \frac{[A^-]_{eq} \cdot [H_3O^+]_{eq}}{[HA]_{eq}}$$
+                    $$pK_a = -\log(K_a)$$
+                </div>
+
+                <h3>5. علاقة هندرسون (مجال التغلب)</h3>
+                <div class="formula-box">
+                    $$pH = pK_a + \log \left( \frac{[A^-]}{[HA]} \right)$$
+                </div>
+            </div>
+
+            <div id="station3" class="lesson">
+                <h2 class="lesson-title">المحطة الثالثة: أهم الأسئلة الكلاسيكية في البكالوريا</h2>
+
+                <div class="qa-box">
+                    <p class="qa-question">س1: هل الحمض المستعمل قوي أم ضعيف؟ علل إجابتك.</p>
+                    <div class="qa-answer">
+                        <b>الإجابة النموذجية:</b> نقوم بحساب نسبة التقدم النهائي $\tau_f$. <br>
+                        - إذا وجدنا $\tau_f < 1$، نقول أن التفاعل غير تام ومحدود، ومنه الحمض ضعيف (يتشرد جزئياً في الماء). <br>
+                        - يمكن أيضاً حساب تركيز $[H_3O^+]$ ومقارنته مع التركيز الابتدائي $C$. إذا كان $[H_3O^+] < C$ فالحمض ضعيف.
+                    </div>
+                </div>
+
+                <div class="qa-box">
+                    <p class="qa-question">س2: ارسم التركيب التجريبي لعملية المعايرة الـ pH مترية مع تسمية البيانات.</p>
+                    <div class="qa-answer">
+                        <b>الإجابة النموذجية:</b> يجب رسم التركيب بدقة ووضع البيانات التالية: 1- سحاحة مدرجة (بها المحلول المعاير)، 2- بيشر (به المحلول المعاير)، 3- مخلاط مغناطيسي، 4- مغناطيس، 5- جهاز pH متر، 6- مسيار الجهاز (مسبار)، 7- حامل.
+                        <br><br>
+                        
+                    </div>
+                </div>
+
+                <div class="qa-box">
+                    <p class="qa-question">س3: كيف نستنتج إحداثيات نقطة التكافؤ $(V_E, pH_E)$؟</p>
+                    <div class="qa-answer">
+                        <b>الإجابة النموذجية:</b> نستنتجها من البيان بإحدى الطريقتين: <br>
+                        1. <b>طريقة المماسات المتوازية:</b> نرسم مماسين متوازيين للمنعطفين، ثم نرسم مستقيماً يوازيهما وفي منتصف المسافة بينهما. نقطة تقاطعه مع المنحنى هي نقطة التكافؤ $E$. <br>
+                        2. <b>طريقة الدالة المشتقة:</b> نقطة التكافؤ تمثل ذروة بيان الدالة المشتقة $\frac{dpH}{dV}$.
+                    </div>
+                </div>
+
+                <div class="qa-box">
+                    <p class="qa-question">س4: أي الكواشف الملونة التالية مناسب لهذه المعايرة؟ ولماذا؟</p>
+                    <div class="qa-answer">
+                        <b>الإجابة النموذجية:</b> الكاشف المناسب هو الذي يشمل مجال تغيره اللوني قيمة الـ $pH$ عند نقطة التكافؤ ($pH_E$). <br>
+                        (مثال: إذا كان $pH_E = 8.2$، فإن أزرق البروموتيمول غير مناسب، بينما الفينول فثالين مناسب).
+                    </div>
+                </div>
+
+                <div class="qa-box">
+                    <p class="qa-question">س5: كيف تستخرج قيمة الـ $pK_a$ للثنائية من بيان المعايرة؟</p>
+                    <div class="qa-answer">
+                        <b>الإجابة النموذجية:</b> عند نقطة نصف التكافؤ (أي عند إضافة حجم قدره $V_b = \frac{V_E}{2}$)، يكون تركيز الحمض المتبقي مساوياً لتركيز الأساس المتشكل، ومنه حسب علاقة هندرسون يصبح: $pH = pK_a$. نُسقط الحجم $\frac{V_E}{2}$ على البيان لنقرأ قيمة الـ $pH$ التي تمثل الـ $pK_a$.
+                    </div>
+                </div>
+            </div>
+
+            <div id="station4" class="lesson">
+                <h2 class="lesson-title" style="color: #dc2626; border-color: #fca5a5;">المحطة الرابعة: الفجوات والأخطاء القاتلة 🔥</h2>
+                <p>هذا القسم مخصص لتصحيح المفاهيم الخاطئة التي تتسبب في خسارة النقاط في البكالوريا:</p>
+
+                <div class="pitfall-container">
+                    <div class="pitfall-title">1. الخلط بين ثابت التوازن ($K$) وثابت الحموضة ($K_a$)</div>
+                    <div class="mistake">❌ <b>الفجوة:</b> التلميذ يعتقد أن $K$ و $K_a$ هما نفس الشيء دائماً ويحسبهما بنفس القانون العشوائي.</div>
+                    <div class="correction">✅ <b>الصواب:</b> $K_a$ هو ثابت خاص <b>فقط</b> بتفاعل حمض مع الماء (يميز الثنائية). أما $K$ فهو لأي تفاعل كيميائي. (في المعايرة مثلاً قد يكون $K = \frac{K_a}{K_e}$ وليس $K_a$).</div>
+                </div>
+
+                <div class="pitfall-container">
+                    <div class="pitfall-title">2. نسيان الحالة الفيزيائية في معادلة التفاعل</div>
+                    <div class="mistake">❌ <b>الفجوة:</b> كتابة المعادلة بدون $(aq)$ و $(l)$، مما يؤدي لخطأ في حساب كسر التفاعل $Q_r$.</div>
+                    <div class="correction">✅ <b>الصواب:</b> يجب دائماً تحديد الحالة. الماء دائماً وفير $(l)$ ويعوض بـ $1$ في قانون التوازن. والأفراد المنحلة تُكتب $(aq)$.</div>
+                </div>
+
+                <div class="pitfall-container">
+                    <div class="pitfall-title">3. الخلط في الحجم ($V$) أثناء عملية المعايرة</div>
+                    <div class="mistake">❌ <b>الفجوة:</b> عند حساب تراكيز المزيج في نقطة معينة قبل التكافؤ، يقسم التلميذ كمية المادة على الحجم الابتدائي $V_A$ فقط.</div>
+                    <div class="correction">✅ <b>الصواب:</b> الحجم في المعايرة هو <b>الحجم الكلي</b> للمزيج المتواجد في البيشر $V_{tot} = V_A + V_B$. يجب القسمة عليه لإيجاد التركيز.</div>
+                </div>
+
+                <div class="pitfall-container">
+                    <div class="pitfall-title">4. سهم معادلة تفاعل المعايرة</div>
+                    <div class="mistake">❌ <b>الفجوة:</b> كتابة تفاعل المعايرة بسهمين متضادين $\rightleftharpoons$.</div>
+                    <div class="correction">✅ <b>الصواب:</b> تفاعل المعايرة يجب أن يكون <b>تفاعلاً تاماً</b>، سريعاً، ووحيداً. لذا يُكتب دائماً بسهم واحد $\rightarrow$.</div>
+                </div>
+
+                <div class="pitfall-container">
+                    <div class="pitfall-title">5. حساب التقدم النهائي $x_f$ انطلاقاً من الـ pH</div>
+                    <div class="mistake">❌ <b>الفجوة:</b> التلميذ يكتب $x_f = 10^{-pH}$ ويتوقف!</div>
+                    <div class="correction">✅ <b>الصواب:</b> القيمة $10^{-pH}$ تمثل <b>تركيز</b> شوارد الهيدرونيوم $\text{mol/L}$ وليس كمية المادة. الصحيح هو الضرب في الحجم: $x_f = 10^{-pH} \times V$.</div>
+                </div>
+
+                <div class="pitfall-container">
+                    <div class="pitfall-title">6. إهمال التشرد الذاتي للماء بشكل عشوائي</div>
+                    <div class="mistake">❌ <b>الفجوة:</b> الاعتقاد بأن المصدر الوحيد لشوارد الهيدرونيوم هو الحمض المنحل دائماً مهما كان التمديد.</div>
+                    <div class="correction">✅ <b>الصواب:</b> إذا كان المحلول ممدداً جداً ($pH \in [6.5, 7.5]$)، فإن التشرد الذاتي للماء يُصبح مؤثراً ولا يمكن إهماله، ويجب أخذ شوارد الـ $H_3O^+$ القادمة من الماء بعين الاعتبار.</div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        // دالة التنقل بين المحطات المنهجية
+        function openLesson(evt, lessonId) {
+            // إخفاء كل الدروس
+            var lessons = document.getElementsByClassName("lesson");
+            for (var i = 0; i < lessons.length; i++) {
+                lessons[i].classList.remove("active");
+            }
+            
+            // إزالة التفعيل عن كل الأزرار
+            var tabs = document.getElementsByClassName("tab-btn");
+            for (var i = 0; i < tabs.length; i++) {
+                tabs[i].classList.remove("active");
+            }
+            
+            // إظهار المحطة المطلوبة وتفعيل زرها
+            document.getElementById(lessonId).classList.add("active");
+            evt.currentTarget.classList.add("active");
+        }
+    </script>
+
+</body>
+</html>
